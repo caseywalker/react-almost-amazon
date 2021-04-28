@@ -3,6 +3,12 @@ import firebaseConfig from '../apiKeys';
 
 const dbURL = firebaseConfig.databaseURL;
 
+const getAuthors = () => new Promise((resolve, reject) => {
+  axios.get(`${dbURL}/authors.json`)
+    .then((response) => resolve(Object.values(response.data)))
+    .catch((error) => reject(error));
+});
+
 const addAuthor = (object) => new Promise((resolve, reject) => {
   axios.post(`${dbURL}/authors.json`, object)
     .then((response) => {
@@ -13,4 +19,4 @@ const addAuthor = (object) => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
-export default addAuthor;
+export { addAuthor, getAuthors };

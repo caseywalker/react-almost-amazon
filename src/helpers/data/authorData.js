@@ -14,9 +14,17 @@ const addAuthor = (object) => new Promise((resolve, reject) => {
     .then((response) => {
       const body = { firebaseKey: response.data.name };
       axios.patch(`${dbURL}/authors/${response.data.name}.json`, body)
-        .then(() => resolve(console.warn('Author added', object)));
+        .then(() => {
+          getAuthors().then((authorsArray) => resolve(authorsArray));
+        });
     })
     .catch((error) => reject(error));
 });
 
-export { addAuthor, getAuthors };
+const deleteAuthor = (firebaseKey) => new Promise((resolve, reject) => {
+  axios.delete(`${dbURL}/authors/${firebaseKey}.json`)
+    .then(() => getAuthors().then((authorsArray) => resolve(authorsArray)))
+    .catch((error) => reject(error));
+});
+
+export { addAuthor, getAuthors, deleteAuthor };

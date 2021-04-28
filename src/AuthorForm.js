@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { addAuthor } from './helpers/data/authorData';
 
-function AuthorForm({ formTitle }) {
+function AuthorForm({ formTitle, setAuthors }) {
   const [author, setAuthor] = useState({
     first_name: '',
     last_name: '',
@@ -18,7 +18,7 @@ function AuthorForm({ formTitle }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addAuthor(author);
+    addAuthor(author).then((authorsArray) => setAuthors(authorsArray));
   };
 
   return (
@@ -60,7 +60,8 @@ function AuthorForm({ formTitle }) {
 }
 
 AuthorForm.propTypes = {
-  formTitle: PropTypes.string.isRequired
+  formTitle: PropTypes.string.isRequired,
+  setAuthors: PropTypes.func
 };
 
 export default AuthorForm;

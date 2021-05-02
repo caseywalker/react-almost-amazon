@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
 import './App.scss';
-import AuthorForm from '../AuthorForm';
 import { getAuthors } from '../helpers/data/authorData';
-import AuthorCard from '../components/AuthorCard';
+import NavBar from '../components/NavBar';
+import Routes from '../helpers/Routes';
 
 function App() {
   const [authors, setAuthors] = useState([]);
@@ -13,19 +14,10 @@ function App() {
 
   return (
     <div className='App'>
-      <AuthorForm formTitle='Add Author Form'
-      setAuthors={setAuthors}
-      />
-      <hr/>
-      {authors.map((authorInfo) => (
-        <AuthorCard key={authorInfo.firebaseKey}
-        firebaseKey={authorInfo.firebaseKey}
-        firstName={authorInfo.first_name}
-        lastName={authorInfo.last_name}
-        email={authorInfo.email}
-        setAuthors={setAuthors}
-        />
-      ))}
+      <Router>
+        <NavBar />
+        <Routes authors={authors} setAuthors={setAuthors} />
+      </Router>
     </div>
   );
 }

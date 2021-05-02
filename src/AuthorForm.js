@@ -1,12 +1,20 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { addAuthor } from './helpers/data/authorData';
+import { addAuthor, updateAuthor } from './helpers/data/authorData';
 
-function AuthorForm({ formTitle, setAuthors }) {
+function AuthorForm({
+  formTitle,
+  setAuthors,
+  firstName,
+  lastName,
+  email,
+  firebaseKey
+}) {
   const [author, setAuthor] = useState({
-    first_name: '',
-    last_name: '',
-    email: ''
+    first_name: firstName || '',
+    last_name: lastName || '',
+    email: email || '',
+    firebaseKey: firebaseKey || null
   });
 
   const handleInputChange = (e) => {
@@ -18,7 +26,11 @@ function AuthorForm({ formTitle, setAuthors }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    addAuthor(author).then((authorsArray) => setAuthors(authorsArray));
+    if (author.firebaseKey) {
+      updateAuthor(author).then((authorsArray) => setAuthors(authorsArray));
+    } else {
+      addAuthor(author).then((authorsArray) => setAuthors(authorsArray));
+    }
   };
 
   return (
@@ -34,15 +46,14 @@ function AuthorForm({ formTitle, setAuthors }) {
         name='first_name'
         type='text'
         placeholder='First Name'
-        value={author.first_name.value}
-        onChange={handleInputChange}
+        value={author.first_name}
         ></input>
         <label>Last Name: </label>
         <input
         name='last_name'
         type='text'
         placeholder='Last Name'
-        value={author.last_name.value}
+        value={author.last_name}
         onChange={handleInputChange}
         ></input>
         <label>Email: </label>
@@ -50,7 +61,7 @@ function AuthorForm({ formTitle, setAuthors }) {
         name='email'
         type='text'
         placeholder='Email'
-        value={author.email.value}
+        value={author.email}
         onChange={handleInputChange}
         ></input>
         <button type='submit'>Submit</button>
@@ -61,7 +72,11 @@ function AuthorForm({ formTitle, setAuthors }) {
 
 AuthorForm.propTypes = {
   formTitle: PropTypes.string.isRequired,
-  setAuthors: PropTypes.func
+  setAuthors: PropTypes.func,
+  firstName: PropTypes.string,
+  lastName: PropTypes.string,
+  email: PropTypes.string,
+  firebaseKey: PropTypes.string
 };
 
 export default AuthorForm;

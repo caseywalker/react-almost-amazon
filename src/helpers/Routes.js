@@ -5,6 +5,7 @@ import Home from '../views/Home';
 import Authors from '../views/Authors';
 import AddAuthor from '../views/AddAuthor';
 import SingleAuthor from '../views/SingleAuthor';
+import NotFound from '../views/NotFound';
 
 function Routes({ authors, setAuthors }) {
   return (
@@ -14,6 +15,7 @@ function Routes({ authors, setAuthors }) {
         <Route exact path='/authors' component={() => <Authors authors={authors} setAuthors={setAuthors} />} />
         <Route path='/authors/:firebaseKey' component={SingleAuthor} />
         <Route path='/add-authors' component={() => <AddAuthor setAuthors={setAuthors} />} />
+        <Route path='*' component={NotFound} />
       </Switch>
     </div>
   );

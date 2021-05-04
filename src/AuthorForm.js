@@ -8,19 +8,19 @@ function AuthorForm({
   firstName,
   lastName,
   email,
-  firebaseKey
+  firebaseKey,
 }) {
   const [author, setAuthor] = useState({
     first_name: firstName || '',
     last_name: lastName || '',
     email: email || '',
-    firebaseKey: firebaseKey || null
+    firebaseKey: firebaseKey || null,
   });
 
   const handleInputChange = (e) => {
     setAuthor((prevState) => ({
       ...prevState,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     }));
   };
 
@@ -34,37 +34,34 @@ function AuthorForm({
   };
 
   return (
-    <div className='author-form'>
-      <form
-      id='add-author-form'
-      autoComplete='off'
-      onSubmit={handleSubmit}
-      >
+    <div className="author-form">
+      <form id="add-author-form" autoComplete="off" onSubmit={handleSubmit}>
         <h2>{formTitle}</h2>
         <label>First Name: </label>
         <input
-        name='first_name'
-        type='text'
-        placeholder='First Name'
-        value={author.first_name}
-        ></input>
+          name="first_name"
+          type="text"
+          placeholder="First Name"
+          value={author.first_name}
+          onChange={handleInputChange}
+        />
         <label>Last Name: </label>
         <input
-        name='last_name'
-        type='text'
-        placeholder='Last Name'
-        value={author.last_name}
-        onChange={handleInputChange}
-        ></input>
+          name="last_name"
+          type="text"
+          placeholder="Last Name"
+          value={author.last_name}
+          onChange={handleInputChange}
+        />
         <label>Email: </label>
         <input
-        name='email'
-        type='text'
-        placeholder='Email'
-        value={author.email}
-        onChange={handleInputChange}
-        ></input>
-        <button type='submit'>Submit</button>
+          name="email"
+          type="text"
+          placeholder="Email"
+          value={author.email}
+          onChange={handleInputChange}
+        />
+        <button type="submit">Submit</button>
       </form>
     </div>
   );
@@ -76,7 +73,7 @@ AuthorForm.propTypes = {
   firstName: PropTypes.string,
   lastName: PropTypes.string,
   email: PropTypes.string,
-  firebaseKey: PropTypes.string
+  firebaseKey: PropTypes.string,
 };
 
 export default AuthorForm;
